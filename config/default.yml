@@ -1,0 +1,22 @@
+database:
+  type: 'postgres'
+  host: 'localhost'
+  port: 15432
+  username: 'postgres'
+  password: 'test'
+  database: 'test-task-db'
+
+microservices:
+  mqtt:
+    url: 'http://localhost:3001'
+    port: '3001'
+
+mqttConfig: 
+  protocol: 'mqtt'
+  host: 'localhost'
+  port: 1883
+  username: 'user'
+  password: 'password'
+  clean: true
+  connectTimeout: 4000
+  reconnectPeriod: 1000
