@@ -1,17 +1,26 @@
-import { MqttService, Payload, Subscribe } from '@app/mqtt';
+import { MqttService } from '@app/mqtt';
 import {
   BadRequestException,
   ConflictException,
   Inject,
   Injectable,
+  Logger,
 } from '@nestjs/common';
 import { SendMessageDTO } from './dto';
 import { TopicsConfig } from '@app/configuration';
 
 @Injectable()
 export class MqttSenderService {
+  private readonly logger = new Logger(MqttSenderService.name);
+
   constructor(@Inject(MqttService) private readonly mqttService: MqttService) {}
 
+  /**
+   * @explained
+   * this function sends a message via
+   * MQTT in a set topic, topic is set in config
+   * @param {SendMessageDTO} body - in general, this is {message: string}
+   */
   sendViaMQTT(body: SendMessageDTO) {
     try {
       if (!body.message)
@@ -26,9 +35,7 @@ export class MqttSenderService {
         response: `Message - ${body.message} was sended successfully`,
       };
     } catch (error) {
-      return {
-        response: `Error: ${(error as Error).message}`,
-      };
+      this.logger.error((error as Error).message);
     }
   }
 }

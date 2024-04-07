@@ -70,6 +70,12 @@ export interface Options extends CommonOptions {
 
 export interface AutoDocControllerOptions extends CommonOptions {}
 
+/**
+ * @explained
+ * we use this decorator in order to reduce the
+ * amount of apiTags decorator
+ * @param {AutoDocControllerOptions} options
+ */
 export function AutoDocController(options: AutoDocControllerOptions) {
   const decorators: Array<
     ClassDecorator | MethodDecorator | PropertyDecorator
@@ -80,6 +86,12 @@ export function AutoDocController(options: AutoDocControllerOptions) {
   return applyDecorators(...decorators);
 }
 
+/**
+ * @explained
+ * we use this decorator in order to set
+ * ApiOperation, ApiOkResponse and etc decorators
+ * @param {Options} options - in general, this is {message: string}
+ */
 export function AutoDoc(options: Options) {
   const decorators: Array<
     ClassDecorator | MethodDecorator | PropertyDecorator
@@ -93,7 +105,6 @@ export function AutoDoc(options: Options) {
         }),
       );
     } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const { type, ...opt } = options[HttpStatus.OK];
 

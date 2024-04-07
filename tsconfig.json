@@ -30,6 +30,10 @@
       "@app/mqtt/*": ["libs/mqtt/src/*"],
       "@app/autodoc": ["libs/autodoc/src"],
       "@app/autodoc/*": ["libs/autodoc/src/*"],
+      "@app/entities": ["libs/entities/src"],
+      "@app/entities/*": ["libs/entities/src/*"],
+      "@app/pg": ["libs/pg/src"],
+      "@app/pg/*": ["libs/pg/src/*"],
     }
   }
 }

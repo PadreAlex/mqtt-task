@@ -16,6 +16,11 @@ import {
   MqttSubscriberParameter,
 } from './mqtt.interface';
 
+/**
+ * This is not my code. I modified
+ * an existing outdated library to make
+ * it work as I need
+ */
 @Injectable()
 export class MqttExplorer implements OnModuleInit {
   private readonly reflector = new Reflector();
@@ -55,7 +60,6 @@ export class MqttExplorer implements OnModuleInit {
     if (Array.isArray(options.topic)) {
       return options.topic.map(processTopic);
     } else {
-      // this.logger.log(options.topic);
       return processTopic(options.topic);
     }
   }
@@ -63,7 +67,6 @@ export class MqttExplorer implements OnModuleInit {
   subscribe(options: MqttSubscribeOptions, parameters: MqttSubscriberParameter[], handle, provider) {
     this.client.subscribe(this.preprocess(options), err => {
       if (!err) {
-        // put it into this.subscribers;
         (Array.isArray(options.topic) ? options.topic : [options.topic])
           .forEach(topic => {
             this.subscribers.push({
@@ -123,7 +126,6 @@ export class MqttExplorer implements OnModuleInit {
           try {
             const transform = getTransform(subscriber.options.transform);
 
-            // add a option to do something before handle message.
             if (this.options.beforeHandle) {
               this.options.beforeHandle(topic, payload, packet);
             }
@@ -163,7 +165,6 @@ export class MqttExplorer implements OnModuleInit {
   }
 
   private static topicToRegexp(topic: string) {
-    // compatible with emqtt
     return new RegExp(
       '^' +
       topic
@@ -183,12 +184,10 @@ export class MqttExplorer implements OnModuleInit {
     const matches: string[] = [];
 
     while (m !== null) {
-      // This is necessary to avoid infinite loops with zero-width matches
       if (m.index === regex.lastIndex) {
         regex.lastIndex++;
       }
 
-      // The result can be accessed through the `m`-variable.
       m.forEach((match, groupIndex) => {
         if (groupIndex !== 0) {
           matches.push(match);

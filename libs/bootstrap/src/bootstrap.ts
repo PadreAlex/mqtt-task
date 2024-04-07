@@ -9,6 +9,11 @@ import { writeFile } from 'fs/promises';
 import { MicroservicesConfig } from '@app/configuration';
 import { json } from 'express';
 
+/**
+ * Im just lazy and I don`t like setting up
+ * bootstrap every single time,
+ * so using this common class instead
+ */
 class Microservice {
   private appKey: AppKey;
   private config: IMicroservice;
@@ -72,9 +77,12 @@ class Microservice {
       .setDescription('backend for archon service')
       .setVersion('1.0')
       .build();
+
+    // everybody likes swagger
     const document = SwaggerModule.createDocument(this.app, openApiConfig);
     SwaggerModule.setup('swagger', this.app, document);
     await writeFile(
+      // all files should be in this folder. If folder does not exist, create it manually
       `swagger-files/${this.appModule.name}.json`,
       JSON.stringify(document),
     );

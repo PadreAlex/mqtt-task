@@ -12,13 +12,17 @@ export function createClientProvider(): Provider {
   return {
     provide: MQTT_CLIENT_INSTANCE,
     useFactory: () => {
+      // creating clint id
       const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
+      // getting url data from config file
       const connectUrl = `${MqttConfig.protocol}://${MqttConfig.host}:${MqttConfig.port}`;
 
       const { clean, connectTimeout, username, password, reconnectPeriod } =
         MqttConfig;
 
+      // if you need to add something else, just modify
+      // this func, don`t forget to add setting in config
       const client = connect(connectUrl, {
         clientId,
         clean: clean,
@@ -28,15 +32,16 @@ export function createClientProvider(): Provider {
         reconnectPeriod: reconnectPeriod,
       });
 
+      //  main listeners
       client.on('connect', () => {
         console.log('MQTT connected');
       });
 
-      client.on('disconnect', packet => {
+      client.on('disconnect', () => {
         console.log('MQTT disconnected');
       });
 
-      client.on('error', error => {
+      client.on('error', () => {
         console.log('MQTT connection error');
       });
 

@@ -4,7 +4,7 @@ database:
   port: 15432
   username: 'postgres'
   password: 'test'
-  database: 'test-task-db'
+  database: 'mqtt-task'
 
 microservices:
   mqttSender:
