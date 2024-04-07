@@ -7,11 +7,15 @@ database:
   database: 'test-task-db'
 
 microservices:
-  mqtt:
+  mqttFirst:
     url: 'http://localhost:3001'
     port: '3001'
 
-mqttConfig: 
+  mqttSecond:
+    url: 'http://localhost:3002'
+    port: '3002'
+
+mqttConfig:
   protocol: 'mqtt'
   host: 'localhost'
   port: 1883

@@ -4,8 +4,8 @@ export interface IMicroservice {
 }
 
 export interface IMicroservicesConfig {
-  mqtt: IMicroservice;
-
+  mqttFirst: IMicroservice;
+  mqttSecond: IMicroservice;
 }
 
 export type AppKey = keyof IMicroservicesConfig;
