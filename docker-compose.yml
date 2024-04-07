@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.5'
 
 services:
   postgres:
@@ -27,3 +27,27 @@ services:
     volumes:
       - ./mosquitto:/etc/mosquitto
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  mqttsende:
+    image: mqttms
+    container_name: 'mqttsender'
+    command: sh -c "node /app/dist/apps/mqtt-first-ms/main.js"
+    volumes:
+      - ./config:/app/config
+    restart: always
+    expose:
+      - 3001
+    ports:
+      - "3001:3001"
+
+  mqttlistener:
+    image: mqttms
+    container_name: 'mqttlistener'
+    command: sh -c "node /app/dist/apps/mqtt-second-ms/main.js"
+    volumes:
+      - ./config:/app/config
+    restart: always
+    expose:
+      - 3002
+    ports:
+      - "3002:3002"

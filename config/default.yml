@@ -1,7 +1,7 @@
 database:
   type: 'postgres'
-  host: 'localhost'
-  port: 15432
+  host: 'postgres'
+  port: 5432
   username: 'postgres'
   password: 'test'
   database: 'mqtt-task'
@@ -17,7 +17,7 @@ microservices:
 
 mqttConfig:
   protocol: 'mqtt'
-  host: 'localhost'
+  host: 'mosquitto'
   port: 1883
   username: 'user'
   password: 'password'

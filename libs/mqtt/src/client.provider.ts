@@ -11,7 +11,7 @@ import { MqttConfig } from '@app/configuration';
 export function createClientProvider(): Provider {
   return {
     provide: MQTT_CLIENT_INSTANCE,
-    useFactory: () => {
+    useFactory: (logger: Logger) => {
       // creating clint id
       const clientId = `mqtt_${Math.random().toString(16).slice(3)}`;
 
@@ -20,6 +20,8 @@ export function createClientProvider(): Provider {
 
       const { clean, connectTimeout, username, password, reconnectPeriod } =
         MqttConfig;
+
+      console.log(MqttConfig)
 
       // if you need to add something else, just modify
       // this func, don`t forget to add setting in config
@@ -32,25 +34,26 @@ export function createClientProvider(): Provider {
         reconnectPeriod: reconnectPeriod,
       });
 
-      //  main listeners
+      // main listeners
+      // this stupid numbers around %s - colors, closed by reset tag
       client.on('connect', () => {
-        console.log('MQTT connected');
+        console.log('\x1b[32m%s\x1b[0m', 'MQTT connected');
       });
 
       client.on('disconnect', () => {
-        console.log('MQTT disconnected');
+        console.log('\x1b[32m%s\x1b[0m', 'MQTT disconnected');
       });
 
       client.on('error', () => {
-        console.log('MQTT connection error');
+        console.log('\x1b[31m%s\x1b[0m', 'MQTT connection error');
       });
 
       client.on('reconnect', () => {
-        console.log('MQTT reconnecting');
+        console.log('\x1b[33m%s\x1b[0m', 'MQTT reconnecting');
       });
 
       client.on('offline', () => {
-        console.log('MQTT offline');
+        console.log('\x1b[31m%s\x1b[0m', 'MQTT offline');
       });
 
       return client;
