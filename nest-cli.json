@@ -9,7 +9,7 @@
     "tsConfigPath": "apps/mqtt-second-ms/tsconfig.app.json"
   },
   "projects": {
-    "mqttSecond": {
+    "mqttListener": {
       "type": "application",
       "root": "apps/mqtt-second-ms",
       "entryFile": "main",
@@ -18,7 +18,7 @@
         "tsConfigPath": "apps/mqtt-second-ms/tsconfig.app.json"
       }
     },
-    "mqttFirst": {
+    "mqttSender": {
       "type": "application",
       "root": "apps/mqtt-first-ms",
       "entryFile": "main",

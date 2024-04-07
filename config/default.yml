@@ -7,11 +7,11 @@ database:
   database: 'test-task-db'
 
 microservices:
-  mqttFirst:
+  mqttSender:
     url: 'http://localhost:3001'
     port: '3001'
 
-  mqttSecond:
+  mqttListener:
     url: 'http://localhost:3002'
     port: '3002'
 
@@ -24,3 +24,6 @@ mqttConfig:
   clean: true
   connectTimeout: 4000
   reconnectPeriod: 1000
+
+topics:
+  mainTopic: 'mainTopic'

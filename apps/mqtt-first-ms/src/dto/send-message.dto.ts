@@ -6,3 +6,8 @@ export class SendMessageDTO {
   @IsString()
   readonly message: string;
 }
+
+export class SendMessageResponse {
+  @ApiProperty()
+  readonly response: string;
+}

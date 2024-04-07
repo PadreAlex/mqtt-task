@@ -4,7 +4,7 @@ import { MqttService } from './mqtt.service';
 import { Bootstrappable } from '@app/bootstrap';
 import { MqttModule } from '@app/mqtt';
 
-@Bootstrappable('mqttSecond')
+@Bootstrappable('mqttListener')
 @Module({
   imports: [MqttModule.forRoot({})],
   controllers: [AppController],
