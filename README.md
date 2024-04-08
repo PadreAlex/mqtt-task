@@ -1,5 +1,5 @@
 # MQTT Dockerized Application
-MQTT dockerized test task
+MQTT dockerized nest application. It uses nestJs as main framework, postgres as sql, typeorm as orm and customized version of nest-mqtt, along with swagger for better testing experience.
 
 ### How to run
 
