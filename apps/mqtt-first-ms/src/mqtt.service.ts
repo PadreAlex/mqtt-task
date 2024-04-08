@@ -21,7 +21,7 @@ export class MqttSenderService {
    * MQTT in a set topic, topic is set in config
    * @param {SendMessageDTO} body - in general, this is {message: string}
    */
-  sendViaMQTT(body: SendMessageDTO) {
+  sendViaMQTT(body: SendMessageDTO): { response: string } {
     try {
       if (!body.message)
         throw new BadRequestException('No message was found in request');
@@ -29,6 +29,8 @@ export class MqttSenderService {
       if (typeof body.message !== 'string')
         throw new ConflictException('Message is not string type');
 
+      // sending message to the set topic
+      // no JSON.stringify because we only receive string
       this.mqttService.publish(TopicsConfig.mainTopic, body.message);
 
       return {

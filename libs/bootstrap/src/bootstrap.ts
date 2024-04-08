@@ -26,7 +26,7 @@ class Microservice {
     this.getConfig();
   }
 
-  private getAppKey() {
+  private getAppKey(): void {
     this.appKey = Reflect.getMetadata('appKey', this.appModule);
     if (!this.appKey) {
       throw new Error(
@@ -35,7 +35,7 @@ class Microservice {
     }
   }
 
-  private setupLogger() {
+  private setupLogger(): void {
     const ctx = `${this.appKey.replace(/^\w/, c =>
       c.toUpperCase(),
     )}Microservice`;
@@ -49,7 +49,7 @@ class Microservice {
     }
   }
 
-  async run() {
+  async run(): Promise<void> {
     try {
       this.app = await NestFactory.create<NestExpressApplication>(
         this.appModule,
@@ -70,7 +70,7 @@ class Microservice {
     }
   }
 
-  private async setupDocumentation() {
+  private async setupDocumentation(): Promise<void> {
     const openApiConfig = new DocumentBuilder()
       .addBearerAuth()
       .setTitle('Archon API')
@@ -88,24 +88,24 @@ class Microservice {
     );
   }
 
-  private setupCors() {
+  private setupCors(): void {
     this.app.enableCors();
   }
 
-  private setupMiddlewares() {
+  private setupMiddlewares(): void {
     this.app.use(cookieParser(), bodyParser.text({ type: ['*/xml', '+xml'] }));
   }
 
-  private setupPipes() {
+  private setupPipes(): void {
     this.app.useGlobalPipes(new ValidationPipe({ transform: true }));
   }
 
-  private setupInterceptors() {
+  private setupInterceptors(): void {
     const globalInterceptors: NestInterceptor[] = [];
     this.app.useGlobalInterceptors(...globalInterceptors);
   }
 }
 
-export async function bootstrap(appModule: any) {
+export async function bootstrap(appModule: any): Promise<void> {
   await new Microservice(appModule).run();
 }
